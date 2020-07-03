@@ -2,6 +2,7 @@ package com.example.notekeeper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.List;
 
 public class NoteActivity extends AppCompatActivity {
+    private final  String TAG = getClass().getSimpleName();
+
     public static final String NOTE_POSITION = "com.example.notekeeper.NOTE_POSITION";
     public static final int POSITION_NOT_SET = -1;
     private NoteInfo mNote;
@@ -62,6 +65,8 @@ public class NoteActivity extends AppCompatActivity {
 
         if(!mIsNewNote)
             displayNote(mSpinnerCourses, mTextNoteTitle, mTextNoteText);
+
+        Log.d(TAG, "onCreate");
     }
 
     private void saveoriginalNoteValues() {
@@ -77,6 +82,7 @@ public class NoteActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         if(mIsCancelling) {
+            Log.d(TAG,"Cancelling note at position: "+ mNotePosition);
             if (mIsNewNote){
             DataManager.getInstance().removeNote(mNotePosition);
         }else {
@@ -86,6 +92,7 @@ public class NoteActivity extends AppCompatActivity {
         }else {
         saveNote();
     }
+        Log.d(TAG, "omPause");
     }
 
     @Override
@@ -128,6 +135,7 @@ public class NoteActivity extends AppCompatActivity {
             
         }else {
             mNote = DataManager.getInstance().getNotes().get(position);
+            mNote = DataManager.getInstance().getNotes().get(mNotePosition);
         }
 
     }
