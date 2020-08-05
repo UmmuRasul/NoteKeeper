@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 public class NoteListActivity extends AppCompatActivity {
+    private NoteRecyclerAdapter mNoteRecyclerAdapter;
 
 
 //    private ArrayAdapter<NoteInfo> mAdapterNotes;
@@ -37,6 +40,7 @@ public class NoteListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 //        mAdapterNotes.notifyDataSetChanged();
+        mNoteRecyclerAdapter.notifyDataSetChanged();
     }
 
     private void initializeDisplayContent() {
@@ -59,5 +63,10 @@ public class NoteListActivity extends AppCompatActivity {
         final RecyclerView recyclerNote = (RecyclerView) findViewById(R.id.list_notes);
         final LinearLayoutManager notesLaytoutManager = new LinearLayoutManager(this);
         recyclerNote.setLayoutManager(notesLaytoutManager);
+
+        List<NoteInfo> note = DataManager.getInstance().getNotes();
+        mNoteRecyclerAdapter = new NoteRecyclerAdapter(this, note);
+        recyclerNote.setAdapter(mNoteRecyclerAdapter);
+
     }
     }

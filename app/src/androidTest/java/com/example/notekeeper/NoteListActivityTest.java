@@ -78,8 +78,6 @@ public class NoteListActivityTest {
         appCompatEditText3.perform(replaceText("body"), closeSoftKeyboard());
 
         pressBack();
-
-        pressBack();
     }
 
     private static Matcher<View> childAtPosition(

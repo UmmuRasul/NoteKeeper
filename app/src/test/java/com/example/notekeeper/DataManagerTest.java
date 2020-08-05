@@ -23,7 +23,7 @@ public class DataManagerTest {
     @Test
     public void createNewNote() {
 
-        final CourseInfo course = sDataManager.getCourse("android_async");
+        final CourseInfo course = sDataManager.getCourse("android async");
         final String noteTitle = "Test note title";
         final String noteText = "This is the body text of my text note";
 
@@ -69,7 +69,7 @@ public class DataManagerTest {
 
 @Test
 public void createNewNoteOneStepCreation() {
-        final CourseInfo course = sDataManager.getCourse("android_sync");
+        final CourseInfo course = sDataManager.getCourse("android sync");
         final String noteTilte = "Test note title";
         final String noteText = "This is the body of my test note";
 

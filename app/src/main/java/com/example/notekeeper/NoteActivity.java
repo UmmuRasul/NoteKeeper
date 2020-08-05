@@ -128,16 +128,14 @@ public class NoteActivity extends AppCompatActivity {
 
     private void readDisplayStateValues() {
         Intent Intent = getIntent();
-        int position  = Intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET);
-        mIsNewNote = position == POSITION_NOT_SET;
-        if(mIsNewNote){
+        mNotePosition = getIntent().getIntExtra(NOTE_POSITION, POSITION_NOT_SET);
+        mIsNewNote = mNotePosition == POSITION_NOT_SET;
+        if (mIsNewNote) {
             createNewNote();
-            
-        }else {
-            mNote = DataManager.getInstance().getNotes().get(position);
-            mNote = DataManager.getInstance().getNotes().get(mNotePosition);
-        }
 
+        }
+        Log.d(TAG, "mNotePosition: " + mNotePosition);
+        mNote = DataManager.getInstance().getNotes().get(mNotePosition);
     }
 
     private void createNewNote() {
@@ -168,9 +166,23 @@ public class NoteActivity extends AppCompatActivity {
             mIsCancelling = true;
             finish();
 
+        }else if (id == R.id.acction_next){
+            moveNext();
+
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void moveNext() {
+        saveNote();
+
+        ++mNotePosition;
+        mNote = DataManager.getInstance().getNotes().get(mNotePosition);
+
+        saveoriginalNoteValues();
+        displayNote(mSpinnerCourses, mTextNoteTitle, mTextNoteText);
+
     }
 
     private void sendEmail() {
